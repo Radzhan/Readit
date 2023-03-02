@@ -12,9 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectRegisterError } from "./userSlice";
 import { register } from "./userThunks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Register = () => {
   const dispatch = useAppDispatch();
