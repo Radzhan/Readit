@@ -32,7 +32,10 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
       message: "This user is already registered",
     },
   },
-
+  name: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,

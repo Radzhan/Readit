@@ -24,6 +24,7 @@ const Register = () => {
   const [state, setState] = useState<RegisterMutation>({
     username: "",
     password: "",
+    name: '',
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +38,7 @@ const Register = () => {
       await dispatch(register(state)).unwrap();
       navigate("/");
     } catch (e) {
-      
+      console.error(e)
     }
   };
 
@@ -89,6 +90,18 @@ const Register = () => {
                 onChange={inputChangeHandler}
                 error={Boolean(getFieldError("password"))}
                 helperText={getFieldError("password")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name="name"
+                label="name"
+                type="text"
+                autoComplete="new-password"
+                value={state.name}
+                onChange={inputChangeHandler}
+                error={Boolean(getFieldError("name"))}
+                helperText={getFieldError("name")}
               />
             </Grid>
           </Grid>

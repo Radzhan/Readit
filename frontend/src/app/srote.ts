@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/es/storage";
 import { usersReducer } from "../features/user/userSlice";
+import { forumReducer } from "../store/ForumSlice";
 
 const usersPersistConfig = {
   key: "Forum:users",
@@ -19,6 +20,7 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+  forum: forumReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
 });
 

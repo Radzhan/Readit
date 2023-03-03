@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
-app.use("/posts", commentRouter);
+app.use("/comments", commentRouter);
 
 const run = async () => {
   mongoose.set("strictQuery", false);

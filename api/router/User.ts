@@ -8,7 +8,7 @@ userRouter.post("/", async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
-
+      name: req.body.name,
       password: req.body.password,
     });
 
@@ -46,5 +46,28 @@ userRouter.post("/sessions", async (req, res, next) => {
     return next(e);
   }
 });
+
+userRouter.delete('/sessions', async (req, res, next) => {
+    try {
+      const token = req.get('Authorization');
+      const success = {message: 'OK'};
+  
+      if (!token) {
+        return res.send(success);
+      }
+  
+      const user = await User.findOne({token});
+  
+      if (!user) {
+        return res.send(success);
+      }
+  
+      user.generateToken();
+      await user.save();
+      return res.send(success);
+    } catch (e) {
+      return next(e);
+    }
+  })
 
 export default userRouter;

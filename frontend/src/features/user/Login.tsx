@@ -25,6 +25,7 @@ const Login = () => {
   const [state, setState] = useState<LoginMutation>({
     username: "",
     password: "",
+    name: '',
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +78,16 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 value={state.password}
+                onChange={inputChangeHandler}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="name"
+                name="name"
+                type="text"
+                autoComplete="current-name"
+                value={state.name}
                 onChange={inputChangeHandler}
               />
             </Grid>
