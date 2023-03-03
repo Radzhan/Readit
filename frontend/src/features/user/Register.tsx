@@ -37,7 +37,7 @@ const Register = () => {
       await dispatch(register(state)).unwrap();
       navigate("/");
     } catch (e) {
-      // error happened
+      
     }
   };
 

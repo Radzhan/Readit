@@ -9,6 +9,10 @@ const PostSchema = new Schema({
   },
   image: String,
   description: String,
+  datetime: {
+    type: Date,
+    required: true,
+  },
 });
 
 const Post = mongoose.model("Post", PostSchema);

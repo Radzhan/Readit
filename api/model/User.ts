@@ -13,7 +13,7 @@ interface IUserMethods {
 type UserModel = Model<IUser, {}, IUserMethods>;
 
 const Schema = mongoose.Schema;
-const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
+const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   username: {
     type: String,
     required: true,
@@ -24,7 +24,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         username: string
       ): Promise<boolean> {
         if (!this.isModified("username")) return true;
-        const user: HydratedDocument<IUser> | null = await Users.findOne({
+        const user: HydratedDocument<IUser> | null = await User.findOne({
           username,
         });
         return !Boolean(user);
@@ -44,7 +44,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   },
 });
 
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
@@ -55,7 +55,7 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.set("toJSON", {
+userSchema.set("toJSON", {
   transform: (doc, ret, options) => {
     delete ret.password;
 
@@ -63,13 +63,13 @@ UserSchema.set("toJSON", {
   },
 });
 
-UserSchema.methods.checkPassword = function (password) {
+userSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.generateToken = function () {
+userSchema.methods.generateToken = function () {
   this.token = randomUUID();
 };
 
-const Users = mongoose.model<IUser, UserModel>("Users", UserSchema);
-export default Users;
+const User = mongoose.model<IUser, UserModel>("User", userSchema);
+export default User;

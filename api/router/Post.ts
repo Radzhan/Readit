@@ -2,11 +2,11 @@ import express from "express";
 import mongoose from "mongoose";
 import Post from "../model/Post";
 import { imagesUpload } from "../multer";
-const PostRouter = express.Router();
+const postRouter = express.Router();
 
-PostRouter.get("/", async (req, res, next) => {
+postRouter.get("/", async (req, res, next) => {
   try {
-    const result = await Post.find();
+    const result = await Post.find().sort({ datetime: -1 });
 
     return res.send(result);
   } catch (e) {
@@ -14,11 +14,14 @@ PostRouter.get("/", async (req, res, next) => {
   }
 });
 
-PostRouter.post("/", imagesUpload.single("image"), async (req, res, next) => {
+postRouter.post("/", imagesUpload.single("image"), async (req, res, next) => {
+  const datetime = new Date().toISOString();
+
   const PostData = {
     title: req.body.title,
     description: req.body.description,
     image: req.file ? req.file.filename : null,
+    datetime,
   };
 
   const NewObjectPost = new Post(PostData);
@@ -35,4 +38,4 @@ PostRouter.post("/", imagesUpload.single("image"), async (req, res, next) => {
   }
 });
 
-export default PostRouter;
+export default postRouter;

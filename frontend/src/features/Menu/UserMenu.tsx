@@ -19,10 +19,6 @@ const UserMenu: React.FC<Props> = ({ user }) => {
     setAnchorEl(null);
   };
 
-  const navigateClick = () => {
-    navigate("/trackHistory");
-  };
-
   return (
     <>
       <Button onClick={handleClick} color="inherit">
@@ -34,7 +30,8 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={navigateClick}>Track History</MenuItem>
+        <MenuItem>Log Out</MenuItem>
+        <MenuItem>Add new post</MenuItem>
       </Menu>
     </>
   );
